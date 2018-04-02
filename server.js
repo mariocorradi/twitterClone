@@ -14,9 +14,15 @@ mongoose.connect('mongodb://localhost/test');
 //default connection
 const db = mongoose.connection;
 
+require('./routes')(app, db);
+app.listen(port, () => {
+  console.log('We are live on ' + port);
+});
+
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function (){
 
+    /**
     const NewUser = new User({
         name: 'Irene Cannistraci',
         username: 'Nenermind',
@@ -38,7 +44,7 @@ db.once('open', function (){
         // object of the user
         console.log(JSON.stringify(user));
     });
-
+    **/
 });
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
