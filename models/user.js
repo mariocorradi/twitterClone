@@ -4,13 +4,15 @@ const Schema = mongoose.Schema;
 const ObjectId = Schema.ObjectId;
 
 // create a schema
-const UserSchema = new Schema({
-  first_name: String,
-  last_name: String,
-  username: String,
-  psw: String
-  
-});
+var userSchema = new Schema({
+    name: String,
+    username: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
+    location: String,
+    age: Number,
+    created_at: Date,
+    updated_at: Date
+  });
 
 // the schema is useless so far
 // we need to create a model using it
