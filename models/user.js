@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
-const ObjectId = Schema.ObjectId;
 
 // create a schema
 var UserSchema = new Schema({
@@ -10,8 +9,8 @@ var UserSchema = new Schema({
     password: { type: String, required: true },
     location: String,
     age: Number,
-    created_at: Date,
-    updated_at: Date
+    created_at: { type: Date, default: Date.now },
+    updated_at: { type: Date, default: Date.now }
   });
 
 // the schema is useless so far
