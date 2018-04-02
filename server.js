@@ -18,10 +18,13 @@ db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function (){
 
     const NewUser = new User({
-        first_name: 'Irene',
-        last_name: 'Cannistraci',
+        name: 'Irene Cannistraci',
         username: 'Nenermind',
-        psw: '321password'
+        psw: '321password',
+        location: 'Rome',
+        age: 23,
+        created_at: Date.now,
+        updated_at: Date.now
     });
     
     NewUser.save( err => {
@@ -29,11 +32,11 @@ db.once('open', function (){
         console.log('User saved succesfully!');
     });
 
-    User.find({ name: 'Irene' }, function(err, user) {
+    User.find({ firstName: 'Irene' }, function(err, user) {
         if (err)
             console.log('ERROR!');
         // object of the user
-        console.log(user);
+        console.log(JSON.stringify(user));
     });
 
 });
