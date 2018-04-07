@@ -6,30 +6,34 @@ module.exports = function(app, db) {
 
   app.post('/user', (req, res) => {
     // You'll create your user here.
-    console.log('Post')
+    const newUser = new User({
+      name: req.body.name,
+      username: req.body.username,
+      password: req.body.password,
+      location: req.body.location,
+      age: req.body.age
+    });
 
+    newUser.save(err => {
+      if (err) res.send("can't save " + err);
+      res.send(newUser);
+    });
   });
 
   app.get('/user', (req, res) => {
-    // db.collection('users').find((err, item) => {
-    //   if (err) {
-    //     console.log('error occurred');
-    //   } else {
-    //     console.log(item);
-    //   }
-    // });
     User.find(function(err, user) {
-      if (err)
-        console.log('ERROR!');
+      if (err){
+          res.send('ERROR!'+err);
+      }
       // object of the user
-      console.log("Response GET - user: "+user);
+      console.log("Response GET - user: " + user);
       res.send(user);
     });
   });
 
   app.get('/user/:id', (req, res) => {
     const id = req.params.id;
-    console.log('Id received'+id)
+    console.log('Id received' + id)
     const details = {
       '_id': new ObjectId(id)
     };
@@ -39,7 +43,7 @@ module.exports = function(app, db) {
           'error': 'An error has occurred'
         });
       } else {
-          console.log(JSON.stringify(item));
+        console.log(JSON.stringify(item));
       }
     });
   });
