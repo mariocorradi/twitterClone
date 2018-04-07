@@ -4,9 +4,19 @@ let ObjectId = require('mongodb').ObjectID;
 
 module.exports = function(app, db) {
 
+    const collection = 
     app.post('/tweet', (req, res) => {
-        // You'll create your tweet here.
-        console.log('Post Tweet')
+        const newTweet = new Tweet({
+          user: req.body.user,
+          username: req.body.username,
+          title: req.body.title,
+          body: req.body.body
+        });
+        
+        newTweet.save(err => {
+          if (err) res.send("Can't save " + err);
+          res.send(newTweet);
+        });
     });
 
     app.get('/tweet', (req, res) => {
@@ -14,7 +24,7 @@ module.exports = function(app, db) {
           if (err)
             console.log('ERROR!');
           // object of the tweet
-          console.log("Response GET Tweet "+tweet);
+          console.log('Response GET Tweet '+tweet);
           res.send(tweet);
         });
 
