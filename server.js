@@ -31,6 +31,7 @@ db.once('open', function (){
         user: '5ac8998f642b8506488d38f7'
     });
 
+<<<<<<< Updated upstream
     newTweet.save( err => {
         if (err) console.log("can't save "+err);
         console.log(newTweet);
@@ -49,4 +50,21 @@ db.once('open', function (){
         console.log(newUser);
     });
 */    
+=======
+    // const newUser = new User({
+    //     name: 'Irene Cannistraci',
+    //     username: 'Nenermind',
+    //     password: '321password',
+    //     location: 'Rome',
+    //     age: 23
+    //   //  created_at: Date.now,
+    //     //updated_at: Date.now
+    // });
+    //
+    // newUser.save( err => {
+    //     if (err) console.log("can't save "+err);
+    //     console.log(newUser);
+    // });
+    
+>>>>>>> Stashed changes
 });

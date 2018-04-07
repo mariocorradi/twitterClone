@@ -1,5 +1,6 @@
 //import user schema
 const User = require('../models/user.js');
+let ObjectId = require('mongodb').ObjectID;
 
 module.exports = function(app, db) {
 
@@ -28,8 +29,9 @@ module.exports = function(app, db) {
 
   app.get('/user/:id', (req, res) => {
     const id = req.params.id;
+    console.log('Id received'+id)
     const details = {
-      '_id': new ObjectID(id)
+      '_id': new ObjectId(id)
     };
     db.collection('users').findOne(details, (err, item) => {
       if (err) {
@@ -37,7 +39,7 @@ module.exports = function(app, db) {
           'error': 'An error has occurred'
         });
       } else {
-        res.send(item);
+          console.log(JSON.stringify(item));
       }
     });
   });
