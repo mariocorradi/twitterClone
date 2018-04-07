@@ -21,7 +21,8 @@ module.exports = function(app, db) {
       if (err)
         console.log('ERROR!');
       // object of the user
-      console.log(JSON.stringify(user));
+      console.log("Response GET - user: "+user);
+      res.send(user);
     });
   });
 
