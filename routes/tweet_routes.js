@@ -20,32 +20,50 @@ module.exports = function(app, db) {
     });
 
     app.get('/api/tweet', (req, res) => {
-        Tweet.find(function(err, user) {
+        Tweet.find(function(err, tweet) {
           if (err)
             console.log('ERROR!');
           // object of the tweet
-          console.log('Response GET Tweet '+tweet);
+          console.log('Response GET Tweet ');
           res.send(tweet);
         });
 
     });
 
+    /*
     app.get('/api/tweet/:username', (req, res) => {
-        const id = req.params.username;
+        const username = req.params.username;
         console.log('Username received '+username)
         const details = {
           'username': username
         };
-        db.collection('tweets').find(details, (err, item) => {
-          if (err) {
-            res.send({
-              'error': 'An error has occurred'
-            });
-          } else {
-              console.log(JSON.stringify(item));
-              res.send(item);
-          }
+        db.collection('tweets', function (err, collection) {
+          collection.find({details}).toArray(function (err, item) {
+            if (err) throw error;
+            
+            console.log("ITEM - "+JSON.stringify(item));
+            res.send(item);
+          });
         });
+    });
+*/
+
+    app.get('/api/tweet/:username', (req, res) => {
+      const username = req.params.username;
+      console.log('Username received '+username)
+      const details = {
+        'username': username
+      };
+      Tweet.find(details, (err, item) => {
+        if (err) {
+          res.send({
+            'error': 'An error has occurred'
+          });
+        } else {
+            console.log(JSON.stringify(item));
+            res.send(item);
+        }
+      });
     });
 
     app.get('/api/tweet/:id', (req, res) => {
@@ -60,7 +78,6 @@ module.exports = function(app, db) {
               'error': 'An error has occurred'
             });
           } else {
-              console.log(JSON.stringify(item));
               res.send(item);
           }
         });
