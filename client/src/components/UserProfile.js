@@ -1,19 +1,18 @@
 import React, { Component } from "react";
-import { Link } from 'react-router-dom'
 
-class Home extends Component {
-  state = {
-    users: [],
+class UserProfile extends Component {
+    state = {
+    user: [],
     error: null
   };
 
   componentDidMount() {
-    fetch("/api/user")
+    fetch('/api/user/'+this.props.match.params.id)
       .then(res => res.json())
       .then(
         result => {
           this.setState({
-            users: result
+            user: result
           });
         },
         error => {
@@ -25,24 +24,17 @@ class Home extends Component {
   }
 
   render() {
-    const { error, users } = this.state;
+    const { error, user } = this.state;
     if (error) {
       return <div> Error: {error.message} </div>;
     } else {
       return (
         <div>
-          <p>Our users</p>
-          <ul>
-            {users.map(user => (
-              <li key={user.username}>
-              <Link to={`/userProfile/${user._id}`}>{user.username} {user.name}</Link>
-            </li>
-            ))}
-          </ul>
+          <p> Questo è il profilo di {user.username}</p>
         </div>
       );
     }
   }
 }
 
-export default Home;
+export default UserProfile;
