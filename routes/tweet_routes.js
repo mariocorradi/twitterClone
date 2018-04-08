@@ -30,6 +30,24 @@ module.exports = function(app, db) {
 
     });
 
+    app.get('/api/tweet/:username', (req, res) => {
+        const id = req.params.username;
+        console.log('Username received '+username)
+        const details = {
+          'username': username
+        };
+        db.collection('tweets').find(details, (err, item) => {
+          if (err) {
+            res.send({
+              'error': 'An error has occurred'
+            });
+          } else {
+              console.log(JSON.stringify(item));
+              res.send(item);
+          }
+        });
+    });
+
     app.get('/api/tweet/:id', (req, res) => {
         const id = req.params.id;
         console.log('Id received '+id)
