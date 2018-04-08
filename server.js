@@ -18,6 +18,7 @@ mongoose.connect('mongodb://localhost/test');
 const db = mongoose.connection;
 
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 require('./routes')(app,db);
 app.listen(port, () => {

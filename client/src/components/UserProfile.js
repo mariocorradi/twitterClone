@@ -49,10 +49,10 @@ class UserProfile extends Component {
   postEvent(event){ 
     event.preventDefault();
     fetch('/api/tweet', {
-     method: 'post',
+     method: 'POST',
      headers: {
       'Accept': 'application/json',
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
      },
      body: JSON.stringify({
       user: this.state.user._id,
@@ -62,6 +62,7 @@ class UserProfile extends Component {
      })
     })
     .then((res) => res.json())
+    .then(console.log)
     .catch((err)=>console.log(err))
 
   };

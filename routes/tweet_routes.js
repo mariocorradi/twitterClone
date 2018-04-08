@@ -4,10 +4,8 @@ let ObjectId = require('mongodb').ObjectID;
 
 module.exports = function(app, db) {
 
-    const collection =
     app.post('/api/tweet', (req, res) => {
-      console.log(req)
-      console.log(typeof req.body); //"object"
+      console.log(req.body)
       const newTweet = new Tweet({
         user: req.body.user,
         username: req.body.username,
