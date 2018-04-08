@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 
 class UserProfile extends Component {
-    state = {
+  state = {
     user: [],
+    tweets : [],
     error: null
   };
 
   componentDidMount() {
-    fetch('/api/user/'+this.props.match.params.id)
+    fetch("/api/user/" + this.props.match.params.id)
       .then(res => res.json())
       .then(
         result => {
@@ -20,6 +21,22 @@ class UserProfile extends Component {
             error
           });
         }
+      )
+      .then(
+        fetch("/api/tweet/" + this.state.user.username)
+          .then(res => res.json())
+          .then(
+            result => {
+              this.setState({
+                user: result
+              });
+            },
+            error => {
+              this.setState({
+                error
+              });
+            }
+          )
       );
   }
 
