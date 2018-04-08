@@ -19,7 +19,7 @@ const db = mongoose.connection;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-require('./routes')(app, db);
+require('./routes')(app,db);
 app.listen(port, () => {
   console.log('We are live on ' + port);
 });
@@ -27,30 +27,4 @@ app.listen(port, () => {
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function (){
 
-/*
-    const newTweet = new Tweet({
-        title:  'Questo è il mio primo tweet!',
-        username: 'Nenermind',
-        body:   'Ciao a tutti! Questo è il primo tweet che faccio.',
-        user: '5ac8998f642b8506488d38f7'
-    });
-
-    newTweet.save( err => {
-        if (err) console.log("can't save "+err);
-        console.log(newTweet);
-    });
-
-    const newUser = new User({
-        name: 'Irene Cannistraci',
-        username: 'Nenermind',
-        password: '321password',
-        location: 'Rome',
-        age: 23
-    });
-
-    newUser.save( err => {
-        if (err) console.log("can't save "+err);
-        console.log(newUser);
-    });
-*/
 });

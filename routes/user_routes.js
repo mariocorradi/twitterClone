@@ -4,7 +4,7 @@ let ObjectId = require('mongodb').ObjectID;
 
 module.exports = function(app, db) {
 
-  app.post('/user', (req, res) => {
+  app.post('/api/user', (req, res) => {
     // You'll create your user here.
     const newUser = new User({
       name: req.body.name,
@@ -20,7 +20,7 @@ module.exports = function(app, db) {
     });
   });
 
-  app.get('/user', (req, res) => {
+  app.get('/api/user', (req, res) => {
     User.find(function(err, user) {
       if (err){
           res.send('ERROR!'+err);
@@ -31,7 +31,7 @@ module.exports = function(app, db) {
     });
   });
 
-  app.get('/user/:id', (req, res) => {
+  app.get('/api/user/:id', (req, res) => {
     const id = req.params.id;
     console.log('Id received' + id)
     const details = {
@@ -44,6 +44,7 @@ module.exports = function(app, db) {
         });
       } else {
         console.log(JSON.stringify(item));
+        res.send(item);
       }
     });
   });
