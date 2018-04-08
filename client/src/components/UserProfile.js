@@ -8,6 +8,11 @@ class UserProfile extends Component {
     error: null
   };
 
+  constructor(props){
+    super(props);
+    this.postEvent = this.postEvent.bind(this);
+   }
+
   componentDidMount() {
     fetch("/api/user/" + this.props.match.params.id)
       .then(res => res.json())
@@ -41,6 +46,26 @@ class UserProfile extends Component {
     
   }
 
+  postEvent(event){ 
+    event.preventDefault();
+    fetch('/api/tweet', {
+     method: 'post',
+     headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+     },
+     body: JSON.stringify({
+      user: this.state.user._id,
+      username: this.state.user.username,
+      title: this.refs.title.value,
+      body: this.refs.body.value
+     })
+    })
+    .then((res) => res.json())
+    .catch((err)=>console.log(err))
+
+  };
+
   render() {
     const { error, tweets, user } = this.state;
     
@@ -49,6 +74,11 @@ class UserProfile extends Component {
     } else {
       return (
         <div>
+          <form onSubmit={this.postEvent}>
+          <input ref="title" placeholder="Title" type="text" name="title"/><br />
+          <input ref="body" placeholder="Write here your Tweet!" type="text" name="body"/><br />
+            <button type="Submit">Send your Tweet!</button>
+          </form>
           <p> Questo è il profilo di {user.username}</p>
           <ul>
 	        {tweets.map(tweet => (

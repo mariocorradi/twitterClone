@@ -31,7 +31,7 @@ class Home extends Component {
     } else {
       return (
         <div>
-          <p>Our users</p>
+          <p>Users</p>
           <ul>
             {users.map(user => (
               <li key={user.username}>

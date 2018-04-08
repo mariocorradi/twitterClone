@@ -6,19 +6,26 @@ module.exports = function(app, db) {
 
     const collection =
     app.post('/api/tweet', (req, res) => {
-        const newTweet = new Tweet({
-          user: req.body.user,
-          username: req.body.username,
-          title: req.body.title,
-          body: req.body.body
-        });
+      console.log(req)
+      console.log(typeof req.body); //"object"
+      const newTweet = new Tweet({
+        user: req.body.user,
+        username: req.body.username,
+        title: req.body.title,
+        body: req.body.body
+      });
 
-        newTweet.save(err => {
-          if (err) res.send("Can't save " + err);
+      newTweet.save(err => {
+        if (err) {
+          res.send("Can't save " + err);
+        } else {
+          console.log('POST NEW TWEET')
           res.send(newTweet);
-        });
+        }
+      });
     });
 
+    
     app.get('/api/tweet', (req, res) => {
         Tweet.find(function(err, tweet) {
           if (err)
@@ -29,24 +36,6 @@ module.exports = function(app, db) {
         });
 
     });
-
-    /*
-    app.get('/api/tweet/:username', (req, res) => {
-        const username = req.params.username;
-        console.log('Username received '+username)
-        const details = {
-          'username': username
-        };
-        db.collection('tweets', function (err, collection) {
-          collection.find({details}).toArray(function (err, item) {
-            if (err) throw error;
-            
-            console.log("ITEM - "+JSON.stringify(item));
-            res.send(item);
-          });
-        });
-    });
-*/
 
     app.get('/api/tweet/:username', (req, res) => {
       const username = req.params.username;
@@ -60,7 +49,6 @@ module.exports = function(app, db) {
             'error': 'An error has occurred'
           });
         } else {
-            console.log(JSON.stringify(item));
             res.send(item);
         }
       });
@@ -72,7 +60,7 @@ module.exports = function(app, db) {
         const details = {
           '_id': new ObjectId(id)
         };
-        db.collection('tweets').findOne(details, (err, item) => {
+        Tweet.findOne(details, (err, item) => {
           if (err) {
             res.send({
               'error': 'An error has occurred'
