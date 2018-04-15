@@ -5,7 +5,6 @@ let ObjectId = require('mongodb').ObjectID;
 module.exports = function(app, db) {
 
     app.post('/api/tweet', (req, res) => {
-      console.log(req.body)
       const newTweet = new Tweet({
         user: req.body.user,
         username: req.body.username,
@@ -23,7 +22,7 @@ module.exports = function(app, db) {
       });
     });
 
-    
+
     app.get('/api/tweet', (req, res) => {
         Tweet.find(function(err, tweet) {
           if (err)
