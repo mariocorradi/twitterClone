@@ -62,7 +62,7 @@ class UserProfile extends Component {
      })
     })
     .then((res) => res.json())
-    .then(console.log)
+    .then(this.refs.title.value = '', this.refs.body.value = '')
     .catch((err)=>console.log(err))
 
   };
@@ -75,7 +75,7 @@ class UserProfile extends Component {
     } else {
       return (
         <div>
-          <form onSubmit={this.postEvent}>
+          <form name="postTweet" onSubmit={this.postEvent}>
           <input ref="title" placeholder="Title" type="text" name="title"/><br />
           <input ref="body" placeholder="Write here your Tweet!" type="text" name="body"/><br />
             <button type="Submit">Send your Tweet!</button>

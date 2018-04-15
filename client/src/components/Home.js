@@ -30,15 +30,17 @@ class Home extends Component {
       return <div> Error: {error.message} </div>;
     } else {
       return (
-        <div>
-          <p>Users</p>
-          <ul>
-            {users.map(user => (
-              <li key={user.username}>
-              <Link to={`/userProfile/${user._id}`}>{user.username} {user.name}</Link>
-            </li>
-            ))}
-          </ul>
+        <div class="row">
+          <div class="col-lg-4">Users</div>
+          <div class="col-lg-8">
+            <ul>
+              {users.map(user => (
+                <li key={user.username}>
+                <Link to={`/userProfile/${user._id}`}>{user.username} {user.name}</Link>
+              </li>
+              ))}
+            </ul>
+          </div>
         </div>
       );
     }
